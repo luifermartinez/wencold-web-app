@@ -140,7 +140,7 @@ const GeneralLayout = () => {
             </Box>
             <Box sx={{ p: 3 }}>
               <Box sx={{ mb: 5, textAlign: "center" }}>
-                <Logo size="h3" />
+                <Logo size="h4" />
               </Box>
               <RouterLink to="auth/sigin" style={{ textDecoration: "none" }}>
                 <Button

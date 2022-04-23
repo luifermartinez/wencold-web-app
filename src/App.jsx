@@ -4,6 +4,7 @@ import { CssBaseline } from "@mui/material"
 import { useContext } from "react"
 import { AppContext } from "@/context/AppContext"
 import { HelmetProvider } from "react-helmet-async"
+import "./App.css"
 
 function App() {
   const { mode } = useContext(AppContext)
@@ -11,9 +12,6 @@ function App() {
   const theme = createTheme({
     palette: {
       mode,
-      primary: {
-        main: "#BA69FF",
-      },
       secondary: {
         main: "#558ABB",
       },
@@ -27,7 +25,7 @@ function App() {
               default: "#fafafa",
               paper: "#fff",
             },
-    }
+    },
   })
 
   return (

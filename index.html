@@ -1,44 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>appart.dev</title>
+    <meta name="description" content="Your app description" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link
+      rel="alternate icon"
+      href="/favicon.ico"
+      type="image/png"
+      sizes="16x16"
+    />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <link rel="mask-icon" href="/favicon.svg" color="#FFFFFF" />
+    <meta name="theme-color" content="#0a1929" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+  </head>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>appart.dev</title>
-	<meta name="description" content="Your app description">
-	<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-	<link rel="alternate icon" href="/favicon.ico" type="image/png" sizes="16x16">
-	<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
-	<link rel="mask-icon" href="/favicon.svg" color="#FFFFFF">
-	<meta name="theme-color" content="#0a1929">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-	<meta name="viewport" content="initial-scale=1, width=device-width" />
-</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      window.fbAsyncInit = function () {
+        FB.init({
+          appId: "478931630358796",
+          cookie: true,
+          xfbml: true,
+          version: "v3.2",
+        })
 
-<body>
-	<div id="root"></div>
-	<script type="module" src="/src/main.jsx"></script>
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '478931630358796',
-      cookie     : true,
-      xfbml      : true,
-      version    : 'v3.2'
-    });
-      
-    FB.AppEvents.logPageView();   
-      
-  };
+        FB.AppEvents.logPageView()
+      }
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
-</body>
-
+      ;(function (d, s, id) {
+        var js,
+          fjs = d.getElementsByTagName(s)[0]
+        if (d.getElementById(id)) {
+          return
+        }
+        js = d.createElement(s)
+        js.id = id
+        js.src = "https://connect.facebook.net/en_US/sdk.js"
+        fjs.parentNode.insertBefore(js, fjs)
+      })(document, "script", "facebook-jssdk")
+    </script>
+  </body>
 </html>

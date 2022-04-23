@@ -5,20 +5,20 @@ import { useContext } from "react"
 import { Link } from "react-router-dom"
 
 const shadow = {
-  h1: "5px 5px #558ABB, 10px 10px rgba(166, 59, 255, .6)",
-  h2: "3px 3px #558ABB, 6px 6px rgba(166, 59, 255, .6)",
-  h3: "2px 2px #558ABB, 4px 4px rgba(166, 59, 255, .6)",
-  h4: "2px 2px #558ABB, 4px 4px rgba(166, 59, 255, .6)",
-  h5: "2px 2px #558ABB, 4px 4px rgba(166, 59, 255, .6)",
-  h6: "2px 2px #558ABB, 4px 4px rgba(166, 59, 255, .6)",
+  h1: "8px 8px #558ABB",
+  h2: "6px 6px #558ABB",
+  h3: "4px 4px #558ABB",
+  h4: "4px 4px #558ABB",
+  h5: "3px 3px #558ABB",
+  h6: "3px 3px #558ABB",
 }
 const shadowLight = {
-  h1: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, 5px 5px #558ABB, 10px 10px rgba(166, 59, 255, .6)",
-  h2: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, 3px 3px #558ABB, 6px 6px rgba(166, 59, 255, .6)",
-  h3: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, 2px 2px #558ABB, 4px 4px rgba(166, 59, 255, .6)",
-  h4: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, 2px 2px #558ABB, 4px 4px rgba(166, 59, 255, .6)",
-  h5: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, 2px 2px #558ABB, 4px 4px rgba(166, 59, 255, .6)",
-  h6: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, 2px 2px #558ABB, 4px 4px rgba(166, 59, 255, .6)",
+  h1: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, 8px 8px #558ABB",
+  h2: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, 6px 6px #558ABB",
+  h3: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, 4px 4px #558ABB",
+  h4: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, 4px 4px #558ABB",
+  h5: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, 3px 3px #558ABB",
+  h6: "-1px 0 black, 0 1px black, 1px 0 black, 0 -1px black, 3px 3px #558ABB",
 }
 
 const Logo = ({ size }) => {
@@ -42,7 +42,7 @@ const Logo = ({ size }) => {
           color: "white",
         }}
       >
-        appart.dev
+        InverWencold
       </Typography>
     </Link>
   )

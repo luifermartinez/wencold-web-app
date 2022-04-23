@@ -18,7 +18,7 @@ const Landing = () => {
         <Grid container spacing={2} sx={{ width: "100%" }}>
           <Grid item xs={12} md={6}>
             <Stack spacing={2}>
-              <Typography variant="h3" fontWeight="bold">
+              <Typography variant="h3" fontWeight="bold" fontFamily="Bebas Neue" letterSpacing={1}>
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry.
               </Typography>
