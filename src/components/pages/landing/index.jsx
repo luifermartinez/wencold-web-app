@@ -13,7 +13,7 @@ const Landing = () => {
   const { mode } = useContext(AppContext)
 
   return (
-    <Page title="appart.dev | Landing">
+    <Page title="InverWencold | Landing">
       <Box sx={{ width: "100%" }}>
         <Grid container spacing={2} sx={{ width: "100%" }}>
           <Grid item xs={12} md={6}>

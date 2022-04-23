@@ -17,7 +17,7 @@ const SignUp = () => {
   const { mode, setMode } = useContext(AppContext)
 
   return (
-    <Page title="appart.dev | Iniciar sesión">
+    <Page title="InverWencold | Iniciar sesión">
       <Container component="main" maxWidth="xs">
         <IconButton
           color="default"

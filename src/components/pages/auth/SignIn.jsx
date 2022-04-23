@@ -33,7 +33,7 @@ const SignIn = () => {
   const size = !matches ? "h4" : matchesMdUp ? "h1" : "h2"
 
   return (
-    <Page title="appart.dev | Iniciar sesión">
+    <Page title="InverWencold | Iniciar sesión">
       <Container component="main" maxWidth="xs">
         <IconButton
           color="default"
