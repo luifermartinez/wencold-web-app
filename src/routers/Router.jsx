@@ -1,6 +1,13 @@
 import SignIn from "@/components/pages/auth/SignIn"
+import Dashboard from "@/components/pages/dashboard"
+import Config from "@/components/pages/dashboard/config"
+import Providers from "@/components/pages/dashboard/providers"
+import Reports from "@/components/pages/dashboard/reports"
+import Users from "@/components/pages/dashboard/users"
 import Landing from "@/components/pages/landing"
+import AdminLayout from "@/layouts/AdminLayout"
 import AuthLayout from "@/layouts/AuthLayout"
+import DashboardLayout from "@/layouts/DashboardLayout"
 import GeneralLayout from "@/layouts/GeneralLayout"
 import { AnimatePresence } from "framer-motion"
 import {
@@ -20,9 +27,20 @@ const AnimatedRoutes = () => {
         <Route path="/" element={<GeneralLayout />}>
           <Route path="" element={<Landing />} />
         </Route>
+        <Route path="dashboard" element={<DashboardLayout />}>
+          <Route path="" element={<Dashboard />} />
+          <Route path="" element={<AdminLayout />}>
+            <Route path="config" element={<Config />} />
+            <Route path="users" element={<Users />} />
+            <Route path="providers" element={<Providers />} />
+            <Route path="reports" element={<Reports />} />
+          </Route>
+          <Route path="*" element={<Navigate to="" />} />
+        </Route>
         <Route path="auth" element={<AuthLayout />}>
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignIn />} />
+          <Route path="*" element={<Navigate to="/auth/signin" />} />
         </Route>
         <Route path="*" element={<Navigate to="/auth/signin" />} />
       </Routes>

@@ -1,5 +1,7 @@
+import { AppContext } from "@/context/AppContext"
 import { motion } from "framer-motion"
-import { Outlet } from "react-router-dom"
+import { useContext, useEffect } from "react"
+import { Outlet, useNavigate } from "react-router-dom"
 
 const variants = {
   initial: {
@@ -25,6 +27,12 @@ const variants = {
 }
 
 const AuthLayout = () => {
+  const { token } = useContext(AppContext)
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (token) navigate("/dashboard")
+  }, [token])
+
   return (
     <motion.div
       initial="initial"

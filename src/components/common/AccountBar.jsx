@@ -7,18 +7,22 @@ import {
   Paper,
   Typography,
   Divider,
-  Button,
 } from "@mui/material"
 import { useTheme } from "@mui/material/styles"
 import { useContext, useState } from "react"
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"
 import LogoutIcon from "@mui/icons-material/Logout"
 import { AppContext } from "@/context/AppContext"
+import { LoadingButton } from "@mui/lab"
+import { fetcherAuth } from "@/helpers/fetch"
+import { useNavigate } from "react-router-dom"
 
 const AccountBar = () => {
-  const { mode } = useContext(AppContext)
+  const { mode, user, setMessage, setToken, setUser } = useContext(AppContext)
   const { palette } = useTheme()
   const [anchorEl, setAnchorEl] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
   const open = Boolean(anchorEl)
 
@@ -29,9 +33,48 @@ const AccountBar = () => {
     setAnchorEl(null)
   }
 
+  const handleLogout = () => {
+    setLoading(true)
+    fetcherAuth("/auth/signout", {}, "POST")
+      .then(() => {
+        setMessage({
+          type: "success",
+          text: "Has cerrado sesión correctamente",
+        })
+      })
+      .catch((error) => {
+        setMessage({
+          type: "error",
+          text: error.message + " Pero aún así hemos cerrado tu sesión local.",
+        })
+      })
+      .finally(() => {
+        setLoading(false)
+        setToken(null)
+        setUser({
+          createdAt: "",
+          email: "",
+          expiresToken: null,
+          id: null,
+          image: null,
+          people: {
+            address: "",
+            dni: "",
+            firstname: "",
+            id: null,
+            lastname: "",
+            phone: "",
+          },
+          role: "",
+          status: "",
+          updatedAt: "",
+        })
+        navigate("/auth/signin")
+      })
+  }
+
   return (
     <Stack direction="row" alignItems="center" paddingRight={2}>
-      {/* Avatar from random source */}
       <IconButton
         id="basic-button"
         color="inherit"
@@ -46,7 +89,10 @@ const AccountBar = () => {
               ? palette.secondary.dark
               : palette.background.default,
           border: mode === "light" ? 1 : 0,
-		  borderColor: mode === "light" ? palette.text.disabled : palette.background.default,
+          borderColor:
+            mode === "light"
+              ? palette.text.disabled
+              : palette.background.default,
         }}
       >
         <ArrowDropDownIcon sx={{ fontSize: 40 }} />
@@ -76,21 +122,30 @@ const AccountBar = () => {
               <Avatar
                 src="https://picsum.photos/200/200"
                 alt="Profile"
-                sx={{ borderColor: palette.text.primary, border: 1, width: 56, height: 56 }}
+                sx={{
+                  borderColor: palette.text.primary,
+                  border: 1,
+                  width: 56,
+                  height: 56,
+                }}
               />
-              <Typography variant="body1">Profile</Typography>
+              <Typography variant="body1">
+                {user.people.firstname} {user.people.lastname}
+              </Typography>
             </Stack>
           </MenuItem>
           <Divider />
-          <Button
+          <LoadingButton
+            onClick={handleLogout}
             variant="outlined"
+            loading={loading}
             color="inherit"
             fullWidth
             startIcon={<LogoutIcon />}
             sx={{ textTransform: "none" }}
           >
             Cerrar sesión
-          </Button>
+          </LoadingButton>
         </Paper>
       </Menu>
     </Stack>

@@ -1,10 +1,11 @@
-import { Box, Container } from "@mui/material"
-import { styled } from "@mui/material/styles"
-import { Outlet, useNavigate } from "react-router-dom"
+import { Box, Container, useMediaQuery } from "@mui/material"
+import { useTheme, styled } from "@mui/material/styles"
+import { Outlet } from "react-router-dom"
 import { useContext, useEffect } from "react"
 import { AppContext } from "@/context/AppContext"
 import Copyright from "@/components/common/Copyright"
 import { motion } from "framer-motion"
+import { fetcher } from "@/helpers/fetch"
 import Sidebar from "@/components/common/Sidebar"
 import Navbar from "@/components/common/Navbar"
 
@@ -50,13 +51,24 @@ const variants = {
   },
 }
 
-const GeneralLayout = () => {
-  const { token, isOpen, setIsOpen } = useContext(AppContext)
-  const navigate = useNavigate()
+const DashboardLayout = () => {
+  const { token, setUser, setMessage, isOpen, setIsOpen } =
+    useContext(AppContext)
+  const theme = useTheme()
+  const matchesMdUp = useMediaQuery(theme.breakpoints.up("md"))
 
   useEffect(() => {
     if (token) {
-      navigate("/dashboard")
+      fetcher(`/auth/token/${token}`)
+        .then(({ data }) => {
+          setUser(data)
+        })
+        .catch(() =>
+          setMessage({
+            type: "error",
+            text: "Ha ocurrido un error al obtener los datos del usuario, cierre sesión e inicie sesión de nuevo.",
+          })
+        )
     }
   }, [token])
 
@@ -72,7 +84,7 @@ const GeneralLayout = () => {
         <Main
           open={isOpen}
           sx={{
-            marginLeft: isOpen ? `${drawerWidth}px` : 0,
+            marginLeft: matchesMdUp ? (isOpen ? `${drawerWidth}px` : 0) : 0,
           }}
         >
           <Container maxWidth="lg" sx={{ pt: 3 }}>
@@ -97,4 +109,4 @@ const GeneralLayout = () => {
   )
 }
 
-export default GeneralLayout
+export default DashboardLayout
