@@ -18,9 +18,9 @@ import { useContext, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import NumberFormat from "react-number-format"
 import { useLocation, useNavigate } from "react-router-dom"
-
 import PersonAddIcon from "@mui/icons-material/PersonAdd"
 import { fetcherAuth } from "@/helpers/fetch"
+
 const CreateUser = () => {
   const { state } = useLocation()
   const { setMessage } = useContext(AppContext)
@@ -93,13 +93,13 @@ const CreateUser = () => {
       <Card>
         <Box component="form" onSubmit={handleSubmit(create)} noValidate>
           <CardContent>
-            <Grid container gap={2} justifyContent="center">
-              <Grid item xs={12} paddingX={1}>
+            <Grid container justifyContent="center">
+              <Grid item xs={12} paddingX={1} marginBottom={2}>
                 <Typography variant="h6" fontWeight={700} marginBottom={0}>
                   Información del usuario
                 </Typography>
               </Grid>
-              <Grid container item xs={12}>
+              <Grid container item xs={12} marginBottom={2}>
                 <Grid item xs={12} md={6} paddingX={1}>
                   <Stack direction="row" spacing={1} alignItems="start">
                     <Select
@@ -144,7 +144,7 @@ const CreateUser = () => {
                 </Grid>
               </Grid>
               <Grid container item xs>
-                <Grid item xs={12} md={6} paddingX={1}>
+                <Grid item xs={12} md={6} paddingX={1} marginBottom={2}>
                   <TextField
                     fullWidth
                     size="small"
@@ -164,7 +164,7 @@ const CreateUser = () => {
                     })}
                   />
                 </Grid>
-                <Grid item xs={12} md={6} paddingX={1}>
+                <Grid item xs={12} md={6} paddingX={1} marginBottom={2}>
                   <TextField
                     fullWidth
                     size="small"
@@ -185,7 +185,7 @@ const CreateUser = () => {
                   />
                 </Grid>
               </Grid>
-              <Grid item xs={12} paddingX={1}>
+              <Grid item xs={12} paddingX={1} marginBottom={2}>
                 <NumberFormat
                   fullWidth
                   customInput={TextField}
@@ -211,7 +211,7 @@ const CreateUser = () => {
                   })}
                 />
               </Grid>
-              <Grid item xs={12} paddingX={1}>
+              <Grid item xs={12} paddingX={1} marginBottom={2}>
                 <TextField
                   label="Dirección"
                   fullWidth
@@ -221,7 +221,7 @@ const CreateUser = () => {
                   {...register("address")}
                 />
               </Grid>
-              <Grid item xs={12} paddingX={1}>
+              <Grid item xs={12} paddingX={1} marginBottom={2}>
                 <Typography variant="h6" fontWeight={700} marginBottom={0}>
                   Información de ingreso
                 </Typography>

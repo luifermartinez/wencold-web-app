@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect, useRef } from "react"
 import { AppContext } from "@/context/AppContext"
 import {
   Box,
@@ -41,11 +41,28 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   const { mode, setMode, user, token } = useContext(AppContext)
   const theme = useTheme()
   const { palette } = theme
+  const ref = useRef()
 
   const { pathname } = useLocation()
 
+  // detect click outside of drawer
+
+  const handleClickOutside = (event) => {
+    if (ref.current && !ref.current.contains(event.target)) {
+      setIsOpen(false)
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
+
   return (
     <Drawer
+      ref={ref}
       sx={{
         width: drawerWidth,
         flexShrink: 0,

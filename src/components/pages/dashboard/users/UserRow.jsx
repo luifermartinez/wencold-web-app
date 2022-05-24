@@ -73,8 +73,8 @@ const UserRow = React.memo(function UserRow({ user, mutate }) {
 
   return (
     <TableRow key={user.id}>
-      <TableCell>{user.people.dni}</TableCell>
-      <TableCell>
+      <TableCell sx={{ whiteSpace: "nowrap" }}>{user.people.dni}</TableCell>
+      <TableCell sx={{ whiteSpace: "nowrap" }}>
         {user.people.firstname} {user.people.lastname}
       </TableCell>
       <TableCell>{user.email}</TableCell>

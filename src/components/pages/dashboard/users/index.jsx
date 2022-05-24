@@ -17,6 +17,7 @@ import {
   TableBody,
   TableCell,
   TableHead,
+  TablePagination,
   TableRow,
   TextField,
   Typography,
@@ -33,7 +34,7 @@ import { useNavigate } from "react-router-dom"
 const Users = () => {
   const { setMessage } = useContext(AppContext)
   const navigate = useNavigate()
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(0)
   const [limit, setLimit] = useState(10)
   const [total, setTotal] = useState(0)
   const [data, setData] = useState([])
@@ -46,9 +47,11 @@ const Users = () => {
   const fetchUsers = useCallback(() => {
     setLoading(true)
     fetcherAuth(
-      `/users?page=${page}&limit=${limit}${search ? `&search=${search}` : ""} ${
-        selectedRole ? `&role=${selectedRole}` : ""
-      } ${status ? `&status=${status}` : ""}`
+      `/users?page=${page + 1}&limit=${limit}${
+        search ? `&search=${search}` : ""
+      } ${selectedRole ? `&role=${selectedRole}` : ""} ${
+        status ? `&status=${status}` : ""
+      }`
     )
       .then((res) => {
         setData(res.data)
@@ -72,6 +75,11 @@ const Users = () => {
 
   const handleChangePage = (event, value) => {
     setPage(value)
+  }
+
+  const handleChangeRowsPerPage = (event) => {
+    setLimit(parseInt(event.target.value, 10))
+    setPage(0)
   }
 
   return (
@@ -100,7 +108,7 @@ const Users = () => {
         </Stack>
       </Banner>
       <Card>
-        <CardContent>
+        <CardContent sx={{ overflowX: "auto" }}>
           <Box sx={{ mb: 3 }}>
             <Typography variant="h5" fontWeight={700} marginBottom={0}>
               Lista de usuarios
@@ -187,42 +195,15 @@ const Users = () => {
               </TableBody>
             </Table>
             <Box>
-              <Stack
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <Typography
-                  variant="body1"
-                  color="textSecondary"
-                  marginTop={2}
-                  marginRight={2}
-                >
-                  {data.length} de {total}{" "}
-                  {`${total > 1 ? "usuarios" : "usuario"}`}
-                </Typography>
-                <Stack direction="row">
-                  <FormControl variant="standard" sx={{ width: 100 }}>
-                    <InputLabel id="limit">Por página</InputLabel>
-                    <Select
-                      labelId="limit"
-                      id="limit"
-                      value={limit}
-                      label="Por página"
-                      onChange={(event) => setLimit(event.target.value)}
-                    >
-                      <MenuItem value={10}>10</MenuItem>
-                      <MenuItem value={20}>20</MenuItem>
-                      <MenuItem value={30}>30</MenuItem>
-                    </Select>
-                  </FormControl>
-                  <Pagination
-                    sx={{ mt: 2 }}
-                    count={total}
-                    page={page}
-                    onChange={handleChangePage}
-                  />
-                </Stack>
+              <Stack direction="row" justifyContent="end" alignItems="center">
+                <TablePagination
+                  sx={{ mt: 2 }}
+                  rowsPerPage={limit}
+                  count={total}
+                  page={page}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                />
               </Stack>
             </Box>
           </Stack>

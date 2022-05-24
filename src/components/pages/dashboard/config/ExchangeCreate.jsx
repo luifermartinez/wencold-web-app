@@ -1,6 +1,5 @@
 import {
   Alert,
-  AlertTitle,
   Box,
   Card,
   CardContent,
@@ -119,14 +118,14 @@ const ExchangeCreate = ({ isOpen, handleClose, mutate, exchange }) => {
                   onSubmit={handleSubmit(create)}
                 >
                   <Alert severity="warning" variant="outlined">
-                    Sólo tienes una hora después de crear una tasa de cambio
-                    para que pueda ser editable.
+                    Sólo tienes una hora despues de la creación de una tasa de
+                    cambio que es editable.
                   </Alert>
                   <NumberFormat
                     customInput={TextField}
                     label="Bolivares digitales por dólar"
                     fullWidth
-                    suffix=" BsD"
+                    suffix=" BsD = $ 1"
                     thousandSeparator="."
                     decimalSeparator=","
                     decimalScale={2}

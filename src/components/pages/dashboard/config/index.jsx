@@ -7,6 +7,7 @@ import {
   Button,
   Card,
   CardContent,
+  CircularProgress,
   Stack,
   Table,
   TableBody,
@@ -196,14 +197,51 @@ const Config = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data &&
-                  data.map((item) => (
-                    <ExchageRow
-                      key={item.id}
-                      {...item}
-                      handleEdit={handleEdit}
-                    />
-                  ))}
+                {!loading ? (
+                  data.length > 0 ? (
+                    data.map((item) => (
+                      <ExchageRow
+                        key={item.id}
+                        {...item}
+                        handleEdit={handleEdit}
+                      />
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={4}>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Typography variant="h6">
+                            No hay tasas de cambio para mostrar
+                          </Typography>
+                        </Box>
+                      </TableCell>
+                    </TableRow>
+                  )
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={4}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          flexDirection: "column",
+                        }}
+                      >
+                        <CircularProgress sx={{ mb: 3 }} />
+                        <Typography variant="h6">
+                          Cargando tasas de cambio
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                )}
               </TableBody>
             </Table>
             <Box>
