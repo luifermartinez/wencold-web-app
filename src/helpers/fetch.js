@@ -31,7 +31,7 @@ export const fetcherAuth = (url, body = null, method = "GET") => {
   })
     .then((res) => res.json())
     .then((res) => {
-      if (res.code === 200) {
+      if (res.code === 200 || res.code === 201) {
         return Promise.resolve(res)
       } else {
         return Promise.reject(res)

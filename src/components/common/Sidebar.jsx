@@ -8,6 +8,7 @@ import {
   IconButton,
   Stack,
   Typography,
+  Chip,
 } from "@mui/material"
 import { useTheme, styled } from "@mui/material/styles"
 import CloseIcon from "@mui/icons-material/Close"
@@ -18,6 +19,7 @@ import { Link as RouterLink, useLocation } from "react-router-dom"
 import LoginIcon from "@mui/icons-material/Login"
 import Copyright from "./Copyright"
 import adminRoutes from "@/constants/adminRoutes"
+import role from "@/constants/roles"
 
 const drawerWidth = 300
 
@@ -28,12 +30,6 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   ...theme.mixins.toolbar,
   justifyContent: "flex-end",
 }))
-
-const role = {
-  admin: "Administrador",
-  customer: "Cliente",
-  manager: "Encargado",
-}
 
 const routes = {
   admin: adminRoutes,
@@ -100,25 +96,21 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
             <Box
               sx={{
                 p: 2,
-                backgroundColor: palette.secondary.main,
                 borderRadius: 1,
+                bgcolor: palette.background.paper,
+                border: 1,
+                borderColor: palette.primary.main,
               }}
             >
-              <Typography variant="subtitle1" color="textPrimary">
+              <Typography variant="subtitle1" color="textSecondary">
                 {`Bienvenido, ${user.people.firstname}`}
               </Typography>
-              <Box
-                sx={{
-                  bgcolor: palette.background.paper,
-                  borderRadius: 1,
-                  mt: 1,
-                  boxShadow: 3,
-                }}
-              >
-                <Typography variant="subtitle1" color="textPrimary">
-                  {`${role[user.role]}`}
-                </Typography>
-              </Box>
+              <Chip
+                label={`${role[user.role]}`}
+                color="primary"
+                variant="outlined"
+                sx={{ borderRadius: 1, mt: 1, width: "100%" }}
+              />
             </Box>
           )}
           {token && user.role && (
@@ -130,7 +122,15 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                   style={{ textDecoration: "none" }}
                 >
                   <Button
-                    variant={pathname === path ? "contained" : "outlined"}
+                    variant={
+                      pathname !== "/dashboard"
+                        ? pathname.includes(path)
+                          ? "contained"
+                          : "outlined"
+                        : path === pathname
+                        ? "contained"
+                        : "outlined"
+                    }
                     fullWidth
                     size="small"
                     color="primary"

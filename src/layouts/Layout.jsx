@@ -30,9 +30,9 @@ const Layout = () => {
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert
           onClose={handleClose}
-          severity={message.type}
+          severity={message.type ? message.type : "info"}
           elevation={6}
-          variant='filled'
+          variant="filled"
           sx={{ width: "100%" }}
         >
           {message.text}

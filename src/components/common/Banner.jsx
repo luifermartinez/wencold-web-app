@@ -3,7 +3,11 @@ import { Card, Typography } from "@mui/material"
 const Banner = ({ title, description, children }) => {
   return (
     <Card sx={{ p: 3, mb: 3 }}>
-      <Typography variant="h5" fontWeight={700} marginBottom={3}>
+      <Typography
+        variant="h5"
+        fontWeight={700}
+        marginBottom={description ? 3 : 0}
+      >
         {title}
       </Typography>
       <Typography

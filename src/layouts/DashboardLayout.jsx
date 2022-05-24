@@ -1,6 +1,6 @@
 import { Box, Container, useMediaQuery } from "@mui/material"
 import { useTheme, styled } from "@mui/material/styles"
-import { Outlet } from "react-router-dom"
+import { Navigate, Outlet } from "react-router-dom"
 import { useContext, useEffect } from "react"
 import { AppContext } from "@/context/AppContext"
 import Copyright from "@/components/common/Copyright"
@@ -52,7 +52,7 @@ const variants = {
 }
 
 const DashboardLayout = () => {
-  const { token, setUser, setMessage, isOpen, setIsOpen } =
+  const { token, setUser, setMessage, isOpen, setIsOpen, setToken } =
     useContext(AppContext)
   const theme = useTheme()
   const matchesMdUp = useMediaQuery(theme.breakpoints.up("md"))
@@ -63,16 +63,17 @@ const DashboardLayout = () => {
         .then(({ data }) => {
           setUser(data)
         })
-        .catch(() =>
+        .catch(() => {
           setMessage({
             type: "error",
-            text: "Ha ocurrido un error al obtener los datos del usuario, cierre sesión e inicie sesión de nuevo.",
+            text: "Ha ocurrido un error al obtener los datos del usuario, intente iniciar sesión nuevamente.",
           })
-        )
+          setToken("")
+        })
     }
   }, [token])
 
-  return (
+  return token ? (
     <motion.div
       initial="initial"
       animate="enter"
@@ -106,6 +107,8 @@ const DashboardLayout = () => {
         </Main>
       </Box>
     </motion.div>
+  ) : (
+    <Navigate to="/" />
   )
 }
 
