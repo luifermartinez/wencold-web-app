@@ -97,7 +97,7 @@ const DashboardLayout = () => {
                 minHeight: "calc(100vh - 64px)",
               }}
             >
-              <Box>
+              <Box sx={{ mb: 2 }}>
                 <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
                 <Outlet />
               </Box>

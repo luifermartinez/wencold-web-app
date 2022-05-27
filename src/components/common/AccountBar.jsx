@@ -117,10 +117,18 @@ const AccountBar = () => {
             p: 1,
           }}
         >
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={() => navigate("/dashboard/profile")}>
             <Stack direction="row" alignItems="center" spacing={2}>
               <Avatar
-                src="https://picsum.photos/200/200"
+                src={
+                  user.image
+                    ? `${import.meta.env.VITE_BACKEND_API}/image?imagePath=${
+                        user.image.path
+                      }`
+                    : `${
+                        import.meta.env.VITE_BACKEND_API
+                      }/image?imagePath=default/default.png`
+                }
                 alt="Profile"
                 sx={{
                   borderColor: palette.text.primary,

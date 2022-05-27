@@ -127,6 +127,12 @@ const Providers = () => {
                   size="small"
                   value={provSearch}
                   onChange={(e) => setProvSearch(e.target.value)}
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") {
+                      setSearch(provSearch)
+                      setPage(0)
+                    }
+                  }}
                 />
                 <LoadingButton
                   loading={loading}
@@ -136,6 +142,7 @@ const Providers = () => {
                   onClick={() => {
                     if (provSearch) {
                       setSearch(provSearch)
+                      setPage(0)
                     }
                   }}
                 >
@@ -204,7 +211,6 @@ const Providers = () => {
               <Stack direction="row" justifyContent="end" alignItems="center">
                 <TablePagination
                   sx={{ mt: 2, width: "100%" }}
-                  
                   rowsPerPage={limit}
                   count={total}
                   page={page}

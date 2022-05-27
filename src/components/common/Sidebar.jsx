@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from "react"
+import { useContext } from "react"
 import { AppContext } from "@/context/AppContext"
 import {
   Box,
@@ -20,6 +20,8 @@ import LoginIcon from "@mui/icons-material/Login"
 import Copyright from "./Copyright"
 import adminRoutes from "@/constants/adminRoutes"
 import role from "@/constants/roles"
+import managerRoutes from "@/constants/managerRoutes"
+import customerRoutes from "@/constants/customerRoutes"
 
 const drawerWidth = 300
 
@@ -33,36 +35,19 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 
 const routes = {
   admin: adminRoutes,
-  customer: adminRoutes,
-  manager: adminRoutes,
+  customer: customerRoutes,
+  manager: managerRoutes,
 }
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
   const { mode, setMode, user, token } = useContext(AppContext)
   const theme = useTheme()
   const { palette } = theme
-  const ref = useRef()
 
   const { pathname } = useLocation()
 
-  // detect click outside of drawer
-
-  const handleClickOutside = (event) => {
-    if (ref.current && !ref.current.contains(event.target)) {
-      setIsOpen(false)
-    }
-  }
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [])
-
   return (
     <Drawer
-      ref={ref}
       sx={{
         width: drawerWidth,
         flexShrink: 0,
@@ -76,7 +61,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       open={isOpen}
     >
       <DrawerHeader>
-        <IconButton onClick={() => setIsOpen(!isOpen)} c>
+        <IconButton onClick={() => setIsOpen(!isOpen)}>
           <CloseIcon sx={{ fontSize: 40 }} />
         </IconButton>
       </DrawerHeader>

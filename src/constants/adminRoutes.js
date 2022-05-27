@@ -24,7 +24,7 @@ const adminRoutes = [
   },
   {
     label: "Movimientos",
-    path: "/dashboard/movimientos",
+    path: "/dashboard/movements",
     Icon: SellIcon,
   },
   {

@@ -11,7 +11,11 @@ const Navbar = ({ isOpen, setIsOpen }) => {
   const { token } = useContext(AppContext)
 
   return (
-    <Card sx={{ mb: 5 }}>
+    <Card
+      sx={{
+        mb: 5,
+      }}
+    >
       <Box sx={{ p: 1 }}>
         <Stack
           direction="row"
