@@ -34,6 +34,10 @@ import {
   Navigate,
   useLocation,
 } from "react-router-dom"
+import Orders from "@/components/pages/dashboard/my-orders"
+import OrderDetail from "@/components/pages/dashboard/my-orders/OrderDetail"
+import Payments from "@/components/pages/dashboard/payment"
+import CreatePayment from "@/components/pages/dashboard/payment/CreatePayment"
 
 const AnimatedRoutes = () => {
   const location = useLocation()
@@ -64,6 +68,11 @@ const AnimatedRoutes = () => {
               <Route path="new" element={<CreateProvider />} />
             </Route>
             <Route path="reports" element={<Reports />} />
+            <Route path="payments" element={<Payments />} />
+            <Route path="orders">
+              <Route path="" element={<Orders />} />
+              <Route path=":id" element={<OrderDetail />} />
+            </Route>
           </Route>
           <Route path="stock" element={<AdminManagerLayout />}>
             <Route path="" element={<Stock />} />
@@ -83,7 +92,15 @@ const AnimatedRoutes = () => {
               <Route path="" element={<Products />} />
               <Route path=":id" element={<ProductDetail />} />
             </Route>
-            <Route path='shopping-cart' element={<ShoppingCart />} />
+            <Route path="my-payments">
+              <Route path="" element={<Payments />} />
+              <Route path="new/:id" element={<CreatePayment />} />
+            </Route>
+            <Route path="my-orders">
+              <Route path="" element={<Orders />} />
+              <Route path=":id" element={<OrderDetail />} />
+            </Route>
+            <Route path="shopping-cart" element={<ShoppingCart />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Route>

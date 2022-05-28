@@ -70,8 +70,8 @@ const MovementRow = ({ movement }) => {
                 Movimiento realizado por
               </Typography>
               <Typography variant="body2" fontWeight="700">
-                {movement.user.email} | {movement.user.people.firstname}{" "}
-                {movement.user.people.lastname} | {role[movement.user.role]}
+                {movement.user?.email} | {movement.user?.people.firstname}{" "}
+                {movement.user?.people.lastname} | {role[movement.user?.role]}
               </Typography>
             </Stack>
           </Collapse>

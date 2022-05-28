@@ -79,9 +79,13 @@ const CreatePaymentMethod = () => {
 
   const save = (values) => {
     setSubmitting(true)
+    let dni = null
+    if (values.dni) {
+      dni = `${values.prefix}-${values.dni}`
+    }
     const payload = {
       ...values,
-      dni: `${values.prefix}-${values.dni}`,
+      dni,
     }
     let url = `/payment-methods`
     let method = "POST"

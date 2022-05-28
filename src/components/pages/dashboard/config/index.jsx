@@ -7,6 +7,8 @@ import PaymentMethods from "./PaymentMethods"
 import { Button, Stack } from "@mui/material"
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange"
 import CreditCardIcon from "@mui/icons-material/CreditCard"
+import PercentIcon from "@mui/icons-material/Percent"
+import Taxes from "./Taxes"
 
 const Config = () => {
   const [selected, setSelected] = useState("exchange")
@@ -14,9 +16,17 @@ const Config = () => {
     <Page title="InverWencold | Configuración">
       <Banner
         title="Configuración"
-        description="Configuración general de la aplicación, en este módulo podrás configurar tasa de cambio del día, y métodos de pago."
+        description="Configuración general de la aplicación, en este módulo podrás configurar tasa de cambio del día, métodos de pago e impuesto."
       >
         <Stack direction="row" justifyContent="end" spacing={2}>
+          <Button
+            size="small"
+            variant={selected === "taxes" ? "contained" : "outlined"}
+            onClick={() => setSelected("taxes")}
+            startIcon={<PercentIcon />}
+          >
+            Impuesto
+          </Button>
           <Button
             size="small"
             variant={selected === "exchange" ? "contained" : "outlined"}
@@ -50,6 +60,14 @@ const Config = () => {
           animate={{ opacity: 1, x: 0 }}
         >
           <PaymentMethods />
+        </motion.div>
+      )}
+      {selected === "taxes" && (
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+        >
+          <Taxes />
         </motion.div>
       )}
     </Page>

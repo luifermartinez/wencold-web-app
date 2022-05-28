@@ -3,8 +3,10 @@ import SettingsIcon from "@mui/icons-material/Settings"
 import GroupIcon from "@mui/icons-material/Group"
 import LocalShippingIcon from "@mui/icons-material/LocalShipping"
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile"
-import Inventory2Icon from '@mui/icons-material/Inventory2';
-import SellIcon from '@mui/icons-material/Sell';
+import Inventory2Icon from "@mui/icons-material/Inventory2"
+import SellIcon from "@mui/icons-material/Sell"
+import PaidIcon from "@mui/icons-material/Paid"
+import OutboxIcon from '@mui/icons-material/Outbox';
 
 const adminRoutes = [
   {
@@ -26,6 +28,16 @@ const adminRoutes = [
     label: "Movimientos",
     path: "/dashboard/movements",
     Icon: SellIcon,
+  },
+  {
+    label: "Ordenes",
+    path: "/dashboard/orders",
+    Icon: OutboxIcon,
+  },
+  {
+    label: "Pagos",
+    path: "/dashboard/payments",
+    Icon: PaidIcon,
   },
   {
     label: "Proveedores",
