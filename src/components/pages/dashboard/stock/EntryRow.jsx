@@ -13,7 +13,6 @@ import {
 } from "@mui/material"
 import moment from "moment"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
-import { Link as RouterLink } from "react-router-dom"
 import { useContext, useEffect, useState } from "react"
 import UndoIcon from "@mui/icons-material/Undo"
 import ReturnProductModal from "./ReturnProductModal"
@@ -27,6 +26,7 @@ const EntryRow = ({ obj, mutate }) => {
   const open = Boolean(anchorEl)
   const [isOpen, setIsOpen] = useState(false)
   const [selected, setSelected] = useState(null)
+  const [seeReason, setSeeReason] = useState(false)
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
@@ -86,11 +86,7 @@ const EntryRow = ({ obj, mutate }) => {
                   alignItems="center"
                 >
                   <Typography variant="body2" whiteSpace="nowrap">
-                    {item.quantity}{" "}
-                    <RouterLink to={`/dashboard/products/${item.product.id}`}>
-                      {item.product.code}
-                    </RouterLink>{" "}
-                    | {item.product.name}
+                    {item.quantity} | {item.product.code} | {item.product.name}
                   </Typography>
                   {!item.returnProduct ? (
                     <>
@@ -119,6 +115,12 @@ const EntryRow = ({ obj, mutate }) => {
                   ) : (
                     <Typography variant="body2" color="textSecondary">
                       Producto devuelto
+                      {item.returnProduct.description ? (
+                        <Typography variant="body2" color="textSecondary">
+                          {" "}
+                          - {item.returnProduct.description}
+                        </Typography>
+                      ) : null}
                     </Typography>
                   )}
                 </Stack>

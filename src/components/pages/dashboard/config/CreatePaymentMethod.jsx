@@ -59,8 +59,12 @@ const CreatePaymentMethod = () => {
       setLoading(true)
       fetcherAuth(`/payment-methods/${id}`)
         .then((res) => {
-          const prefix = res.data.dni.substring(0, 1)
-          const dni = res.data.dni.substring(2)
+          let prefix = "V"
+          let dni = ""
+          if (res.data.dni) {
+            prefix = res.data.dni.substring(0, 1)
+            dni = res.data.dni.substring(2)
+          }
           setActive(!res.data.deletedAt)
           reset({ ...res.data, prefix, dni })
         })

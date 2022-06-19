@@ -29,7 +29,7 @@ import Logo from "@/components/common/Logo"
 
 const OrderDetail = () => {
   const { id } = useParams()
-  const { setMessage, user } = useContext(AppContext)
+  const { setMessage, user, setMode, mode } = useContext(AppContext)
   const navigate = useNavigate()
   const ref = useRef()
 
@@ -42,6 +42,11 @@ const OrderDetail = () => {
 
   const handlePrint = useReactToPrint({
     content: () => ref.current,
+    onAfterPrint: () => {
+      if (mode === "dark") {
+        setMode("dark")
+      }
+    },
   })
   const theme = useTheme()
 
@@ -93,7 +98,14 @@ const OrderDetail = () => {
             <Button
               variant="contained"
               size="small"
-              onClick={handlePrint}
+              onClick={() => {
+                if (mode === "dark") {
+                  setMode("light")
+                }
+                new Promise((resolve) => resolve()).then(() => {
+                  handlePrint()
+                })
+              }}
               fullWidth
             >
               Imprimir

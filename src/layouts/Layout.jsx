@@ -1,43 +1,30 @@
-import { AppContext } from "@/context/AppContext"
 import Router from "@/routers/Router"
-import { Alert, Snackbar } from "@mui/material"
-import { useContext, useEffect, useState } from "react"
+import { useTheme } from "@mui/material"
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 const Layout = () => {
-  const { message } = useContext(AppContext)
-  const [open, setOpen] = useState(false)
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return
-    }
-
-    setOpen(false)
-  }
-
-  useEffect(() => {
-    if (message.text) {
-      setOpen(true)
-      setTimeout(() => {
-        setOpen(false)
-      }, 6000)
-    }
-  }, [message])
+  const { palette } = useTheme()
 
   return (
     <>
       <Router />
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          severity={message.type ? message.type : "info"}
-          elevation={6}
-          variant="filled"
-          sx={{ width: "100%" }}
-        >
-          {message.text}
-        </Alert>
-      </Snackbar>
+      <ToastContainer
+        position="bottom-left"
+        toastStyle={{
+          backgroundColor: palette.background.paper,
+          color: palette.text.primary,
+          border: "1px solid " + palette.divider,
+        }}
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+      />
     </>
   )
 }

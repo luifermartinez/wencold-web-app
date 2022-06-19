@@ -1,7 +1,7 @@
 import { Box, Container, useMediaQuery } from "@mui/material"
 import { useTheme, styled } from "@mui/material/styles"
 import { Navigate, Outlet } from "react-router-dom"
-import { useContext, useEffect } from "react"
+import { memo, useContext, useEffect } from "react"
 import { AppContext } from "@/context/AppContext"
 import Copyright from "@/components/common/Copyright"
 import { motion } from "framer-motion"
@@ -51,29 +51,11 @@ const variants = {
   },
 }
 
-const DashboardLayout = () => {
-  const { token, setUser, setMessage, isOpen, setIsOpen, setToken } =
-    useContext(AppContext)
+const DashboardWrapper = memo(function DashboardWrapper({ children }) {
+  const { isOpen, setIsOpen } = useContext(AppContext)
   const theme = useTheme()
   const matchesMdUp = useMediaQuery(theme.breakpoints.up("md"))
-
-  useEffect(() => {
-    if (token) {
-      fetcher(`/auth/token/${token}`)
-        .then(({ data }) => {
-          setUser(data)
-        })
-        .catch(() => {
-          setMessage({
-            type: "error",
-            text: "Ha ocurrido un error al obtener los datos del usuario, intente iniciar sesión nuevamente.",
-          })
-          setToken("")
-        })
-    }
-  }, [token])
-
-  return token ? (
+  return (
     <motion.div
       initial="initial"
       animate="enter"
@@ -107,9 +89,29 @@ const DashboardLayout = () => {
         </Main>
       </Box>
     </motion.div>
-  ) : (
-    <Navigate to="/" />
   )
+})
+
+const DashboardLayout = () => {
+  const { token, setUser, setMessage, setToken } = useContext(AppContext)
+
+  useEffect(() => {
+    if (token) {
+      fetcher(`/auth/token/${token}`)
+        .then(({ data }) => {
+          setUser(data)
+        })
+        .catch(() => {
+          setMessage({
+            type: "error",
+            text: "Ha ocurrido un error al obtener los datos del usuario, intente iniciar sesión nuevamente.",
+          })
+          setToken("")
+        })
+    }
+  }, [token])
+
+  return token ? <DashboardWrapper /> : <Navigate to="/" />
 }
 
 export default DashboardLayout

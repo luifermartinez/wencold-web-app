@@ -87,7 +87,7 @@ const CreateProvider = () => {
     }
     let url = `/provider`
     let method = "POST"
-    if (state.id) {
+    if (state?.id) {
       url = `/provider/${state.id}`
       method = "PUT"
     }

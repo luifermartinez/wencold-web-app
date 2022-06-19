@@ -2,6 +2,7 @@ import { AppContext } from "@/context/AppContext"
 import { fetcherAuth } from "@/helpers/fetch"
 import {
   Box,
+  Button,
   Card,
   CardContent,
   FormControl,
@@ -14,6 +15,7 @@ import {
   useTheme,
 } from "@mui/material"
 import { memo, useCallback, useContext, useEffect, useState } from "react"
+import DeleteIcon from "@mui/icons-material/Delete"
 
 const ProductRow = ({ cart, lastExchange, mutate }) => {
   const { shape } = useTheme()
@@ -60,6 +62,23 @@ const ProductRow = ({ cart, lastExchange, mutate }) => {
         setMessage({ type: "error", text: err.message })
         setQuantity(oldQuantity)
       })
+
+  const removeProduct = () => {
+    fetcherAuth(`/shopping-cart/${cart.id}`, null, "DELETE")
+      .then((res) => {
+        setMessage({
+          type: "success",
+          text: res.message,
+        })
+        mutate()
+      })
+      .catch((error) => {
+        setMessage({
+          type: "error",
+          text: error.message,
+        })
+      })
+  }
 
   return (
     <Grid container>
@@ -129,7 +148,7 @@ const ProductRow = ({ cart, lastExchange, mutate }) => {
                           </Typography>
                         )}
                       </Stack>
-                      <Stack>
+                      <Stack spacing={1}>
                         {stock && (
                           <FormControl
                             variant="outlined"
@@ -153,6 +172,14 @@ const ProductRow = ({ cart, lastExchange, mutate }) => {
                             </Select>
                           </FormControl>
                         )}
+                        <Button
+                          size="small"
+                          startIcon={<DeleteIcon />}
+                          onClick={removeProduct}
+                          variant="outlined"
+                        >
+                          Eliminar producto
+                        </Button>
                       </Stack>
                     </Stack>
                   </Stack>

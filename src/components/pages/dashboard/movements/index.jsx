@@ -45,7 +45,7 @@ const Movements = () => {
     }
     setLoading(true)
     fetcherAuth(
-      `/movements?page=${page}&limit=${limit}${
+      `/movements?page=${page + 1}&limit=${limit}${
         search ? `&search=${search}` : ""
       } ${
         startDate && dateEnd

@@ -52,7 +52,7 @@ const ShoppingCart = () => {
     fetchLastExchange()
   }, [fetchLastExchange])
 
-  const pay = () => {
+  const makeOrder = () => {
     setSubmitting(true)
     fetcherAuth(`/payment/billOut`, {}, "POST")
       .then((res) => {
@@ -109,7 +109,7 @@ const ShoppingCart = () => {
             size="large"
             fullWidth
             startIcon={<PaidIcon />}
-            onClick={pay}
+            onClick={makeOrder}
           >
             Realizar orden
           </LoadingButton>

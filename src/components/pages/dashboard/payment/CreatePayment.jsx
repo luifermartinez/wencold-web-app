@@ -60,6 +60,12 @@ const CreatePayment = () => {
     fetcherAuth(`/billout/${id}`)
       .then((res) => {
         setOrder(res.data)
+        const price = res.data.billOutProducts
+          .map((bop) => bop.product.price * bop.quantity)
+          .reduce((a, b) => a + b, 0)
+        setSubtotal(price)
+        setTotal(price + price * res.data.tax.tax)
+        setTax(res.data.tax)
       })
       .catch((error) => {
         setMessage({ type: "error", text: error.message })
@@ -70,18 +76,6 @@ const CreatePayment = () => {
   useEffect(() => {
     fetchOrder()
   }, [fetchOrder])
-
-  useEffect(() => {
-    if (order) {
-      const price = order.billOutProducts
-        .map((bop) => bop.product.price * bop.quantity)
-        .reduce((a, b) => a + b, 0)
-      setSubtotal(price)
-      setTotal(price + price * order.tax.tax)
-      setTax(order.tax.tax * price)
-      setValue("amountRef", total)
-    }
-  }, [order])
 
   const fetchLastExchange = useCallback(() => {
     fetcherAuth(`/exchange/last`)
@@ -98,7 +92,7 @@ const CreatePayment = () => {
   }, [fetchLastExchange])
 
   const fetchPaymentMethods = useCallback(() => {
-    fetcherAuth(`/payment-methods?page=1&limit=10000`)
+    fetcherAuth(`/payment-methods?page=1&limit=10000&status=1`)
       .then((res) => {
         setPaymentMethods(res.data)
       })
@@ -113,9 +107,9 @@ const CreatePayment = () => {
 
   const create = (values) => {
     setSubmitting(true)
-    const { amountRef, reference, paymentMethod, paymentProof } = values
+    const { reference, paymentMethod, paymentProof } = values
     const fd = new FormData()
-    fd.append("amountRef", amountRef.toFixed(2))
+    fd.append("amountRef", total)
     fd.append("reference", reference)
     fd.append("paymentMethod", paymentMethod)
     fd.append("billOutCode", order.code)
@@ -300,7 +294,7 @@ const CreatePayment = () => {
                           <Typography variant="h6">
                             <NumberFormat
                               displayType="text"
-                              value={tax}
+                              value={tax.tax * subtotal}
                               thousandSeparator
                               decimalScale={2}
                               suffix=" $"
@@ -416,7 +410,7 @@ const CreatePayment = () => {
                 disabled
                 decimalSeparator="."
                 size="small"
-                value={watch("amountRef")}
+                value={total}
                 suffix={` $ | ${Number(total * lastExchange).toFixed(2)} BsD`}
               />
               <TextField

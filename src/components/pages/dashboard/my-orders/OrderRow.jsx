@@ -11,11 +11,14 @@ import {
 import ReceiptIcon from "@mui/icons-material/Receipt"
 import { useNavigate } from "react-router-dom"
 import moment from "moment"
+import { useContext } from "react"
+import { AppContext } from "@/context/AppContext"
 
 const OrderRow = ({ order, lastExchange, tax }) => {
   const theme = useTheme()
   const { palette } = theme
   const navigate = useNavigate()
+  const { user } = useContext(AppContext)
 
   const xs = useMediaQuery(theme.breakpoints.between("xs", "sm"))
 
@@ -48,15 +51,13 @@ const OrderRow = ({ order, lastExchange, tax }) => {
             <Typography variant="body2" color="textSecondary">
               Productos
             </Typography>
-            <Typography variant="body1">
+            <Stack>
               {order.billOutProducts.map(({ product, id, quantity }) => (
-                <Stack key={id}>
-                  <Typography variant="body2">
-                    {quantity} - {product.name}
-                  </Typography>
-                </Stack>
+                <Typography key={id} variant="body2">
+                  {quantity} - {product.name}
+                </Typography>
               ))}
-            </Typography>
+            </Stack>
           </Stack>
           <Stack>
             <Typography variant="body2" color="textSecondary">
@@ -68,20 +69,18 @@ const OrderRow = ({ order, lastExchange, tax }) => {
             <Typography variant="body2" color="textSecondary">
               Estado
             </Typography>
-            <Typography variant="body1">
-              <Chip
-                label={orderStatus[order.status]}
-                sx={{ borderRadius: 1 }}
-                variant="outlined"
-                color={
-                  order.status === "pending"
-                    ? "warning"
-                    : order.status === "refused"
-                    ? "error"
-                    : "primary"
-                }
-              />
-            </Typography>
+            <Chip
+              label={orderStatus[order.status]}
+              sx={{ borderRadius: 1 }}
+              variant="outlined"
+              color={
+                order.status === "pending"
+                  ? "warning"
+                  : order.status === "refused"
+                  ? "error"
+                  : "primary"
+              }
+            />
           </Stack>
         </Stack>
       </Grid>
@@ -91,7 +90,11 @@ const OrderRow = ({ order, lastExchange, tax }) => {
           variant="outlined"
           size="small"
           startIcon={<ReceiptIcon />}
-          onClick={() => navigate(`${order.id}`)}
+          onClick={() =>
+            navigate(
+              user.role === "manager" ? `order/${order.id}` : `${order.id}`
+            )
+          }
         >
           Ver detalles
         </Button>

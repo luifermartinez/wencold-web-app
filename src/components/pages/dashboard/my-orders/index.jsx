@@ -2,30 +2,38 @@ import Banner from "@/components/common/Banner"
 import Page from "@/components/utils/Page"
 import { useCallback, useContext, useEffect, useState } from "react"
 import { fetcherAuth } from "@/helpers/fetch"
-import { AppContext } from "@/context/appContext"
+import { AppContext } from "@/context/AppContext"
 import {
+  Button,
   Card,
   CardContent,
   CircularProgress,
   Grid,
   Stack,
+  Table,
+  TableFooter,
   TablePagination,
+  TableRow,
   TextField,
   Typography,
 } from "@mui/material"
 import OrderRow from "./OrderRow"
+import OutboxIcon from "@mui/icons-material/Outbox"
 import moment from "moment"
+import { useNavigate } from "react-router-dom"
 
 const Orders = () => {
-  const { setMessage } = useContext(AppContext)
+  const navigate = useNavigate()
+  const { setMessage, user } = useContext(AppContext)
   const [orders, setOrders] = useState([])
   const [page, setPage] = useState(1)
   const [limit, setLimit] = useState(10)
   const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(false)
   const [tax, setTax] = useState(0)
-  const [startDate, setStartDate] = useState(null)
-  const [endDate, setEndDate] = useState(null)
+  const [startDate, setStartDate] = useState(undefined)
+  const [endDate, setEndDate] = useState(undefined)
+  const title = user.role === "admin" ? "Ordenes" : "Mis ordenes"
 
   const fetchPayments = useCallback(() => {
     setLoading(true)
@@ -76,18 +84,36 @@ const Orders = () => {
   }
 
   return (
-    <Page title="InverWencold | Mis ordenes">
-      <Banner title="Mis ordenes" description="Ordenes realizadas." />
+    <Page title={`InverWencold | ${title}`}>
+      {user.role !== "manager" && (
+        <Banner title={title} description="Ordenes realizadas." />
+      )}
       <Card>
         <CardContent>
           <Grid container gap={2} marginBottom={2}>
+            {user.role === "manager" && (
+              <Grid item container xs={12} justifyContent="end">
+                <Grid item xs={12} sm={12} md={5} lg={4}>
+                  <Stack direction="row" justifyContent="end">
+                    <Button
+                      fullWidth
+                      variant="outlined"
+                      size="small"
+                      startIcon={<OutboxIcon />}
+                      onClick={() => navigate("order")}
+                    >
+                      Realizar venta
+                    </Button>
+                  </Stack>
+                </Grid>
+              </Grid>
+            )}
             <Grid item xs={12} sm={12} md lg>
               <TextField
                 size="small"
                 fullWidth
                 type="date"
                 label="Fecha de inicio"
-                defaultValue={new Date().toISOString().split("T")[0]}
                 value={startDate}
                 onChange={(event) => {
                   if (endDate && event.target.value > endDate) {
@@ -99,6 +125,7 @@ const Orders = () => {
                   }
                   setStartDate(event.target.value)
                 }}
+                InputLabelProps={{ shrink: true }}
               />
             </Grid>
             <Grid item xs={12} sm={12} md lg>
@@ -107,7 +134,6 @@ const Orders = () => {
                 fullWidth
                 type="date"
                 label="Fecha de fin"
-                defaultValue={new Date().toISOString().split("T")[0]}
                 value={endDate}
                 onChange={(event) => {
                   if (new Date(event.target.value) >= new Date(startDate)) {
@@ -119,6 +145,7 @@ const Orders = () => {
                     })
                   }
                 }}
+                InputLabelProps={{ shrink: true }}
               />
             </Grid>
           </Grid>
@@ -128,15 +155,21 @@ const Orders = () => {
                 {orders.map((order) => (
                   <OrderRow order={order} key={order.id} tax={tax} />
                 ))}
-                <TablePagination
-                  sx={{ border: 0 }}
-                  rowsPerPage={limit}
-                  count={total}
-                  page={page - 1}
-                  onPageChange={handleChangePage}
-                  onRowsPerPageChange={handleChangeRowsPerPage}
-                  labelRowsPerPage="Ordenes por página"
-                />
+                <Table>
+                  <TableFooter>
+                    <TableRow>
+                      <TablePagination
+                        sx={{ border: 0 }}
+                        rowsPerPage={limit}
+                        count={total}
+                        page={page - 1}
+                        onPageChange={handleChangePage}
+                        onRowsPerPageChange={handleChangeRowsPerPage}
+                        labelRowsPerPage="Ordenes por página"
+                      />
+                    </TableRow>
+                  </TableFooter>
+                </Table>
               </Stack>
             ) : (
               <Stack alignItems="center">

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { AppContext } from "@/context/AppContext"
+import useToast from "@/components/utils/useToast"
 
 const InitContext = ({ children }) => {
   const [mode, setMode] = useState(localStorage.getItem("mode") || "light")
@@ -22,11 +23,10 @@ const InitContext = ({ children }) => {
     updatedAt: "",
   })
   const [token, setToken] = useState(localStorage.getItem("token"))
-  const [message, setMessage] = useState({
-    type: "",
-    text: "",
-  })
+
   const [isOpen, setIsOpen] = useState(false)
+
+  const { setMessage } = useToast()
 
   const value = {
     mode,
@@ -35,10 +35,9 @@ const InitContext = ({ children }) => {
     setUser,
     token,
     setToken,
-    message,
-    setMessage,
     isOpen,
     setIsOpen,
+    setMessage,
   }
 
   useEffect(() => {

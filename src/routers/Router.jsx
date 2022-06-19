@@ -38,6 +38,7 @@ import Orders from "@/components/pages/dashboard/my-orders"
 import OrderDetail from "@/components/pages/dashboard/my-orders/OrderDetail"
 import Payments from "@/components/pages/dashboard/payment"
 import CreatePayment from "@/components/pages/dashboard/payment/CreatePayment"
+import CreateBillOut from "@/components/pages/dashboard/stock/billout/CreateBillOut"
 
 const AnimatedRoutes = () => {
   const location = useLocation()
@@ -77,6 +78,8 @@ const AnimatedRoutes = () => {
           <Route path="stock" element={<AdminManagerLayout />}>
             <Route path="" element={<Stock />} />
             <Route path=":id" element={<EditProduct />} />
+            <Route path="order" element={<CreateBillOut />} />
+            <Route path="order/:id" element={<OrderDetail />} />
             <Route path="entry" element={<ManagerLayout />}>
               <Route path="" element={<Entry />} />
             </Route>

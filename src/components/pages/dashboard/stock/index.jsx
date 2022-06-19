@@ -9,6 +9,7 @@ import InventoryIcon from "@mui/icons-material/Inventory"
 import OutboxIcon from "@mui/icons-material/Outbox"
 import Inventory from "./stock"
 import { AppContext } from "@/context/AppContext"
+import Orders from "../my-orders"
 
 const Stock = () => {
   const [selected, setSelected] = useState("stock")
@@ -76,6 +77,14 @@ const Stock = () => {
           animate={{ opacity: 1, x: 0 }}
         >
           <EntryInvoice />
+        </motion.div>
+      )}
+      {selected === "billout" && (
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+        >
+          <Orders />
         </motion.div>
       )}
     </Page>
