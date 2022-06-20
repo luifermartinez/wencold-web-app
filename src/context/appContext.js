@@ -25,4 +25,5 @@ export const AppContext = createContext({
   setUser: () => {},
   token: "",
   setToken: () => {},
+  setMessage: () => {},
 })

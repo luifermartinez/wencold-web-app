@@ -154,7 +154,12 @@ const SignIn = () => {
               </Stack>
               <Grid container>
                 <Grid item>
-                  <Link href="#" variant="body2" color="text.secondary">
+                  <Link
+                    to="/auth/forgot"
+                    component={RouterLink}
+                    variant="body2"
+                    color="text.secondary"
+                  >
                     ¿Olvidaste tu contraseña?
                   </Link>
                 </Grid>

@@ -39,6 +39,7 @@ import OrderDetail from "@/components/pages/dashboard/my-orders/OrderDetail"
 import Payments from "@/components/pages/dashboard/payment"
 import CreatePayment from "@/components/pages/dashboard/payment/CreatePayment"
 import CreateBillOut from "@/components/pages/dashboard/stock/billout/CreateBillOut"
+import Forgot from "@/components/pages/auth/Forgot"
 
 const AnimatedRoutes = () => {
   const location = useLocation()
@@ -110,6 +111,7 @@ const AnimatedRoutes = () => {
         <Route path="auth" element={<AuthLayout />}>
           <Route path="signin" element={<SignIn />} />
           <Route path="signup" element={<SignUp />} />
+          <Route path="forgot" element={<Forgot />} />
           <Route path="*" element={<Navigate to="/auth/signin" />} />
         </Route>
         <Route path="*" element={<NotFound />} />
