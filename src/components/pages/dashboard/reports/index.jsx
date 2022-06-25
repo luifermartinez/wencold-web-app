@@ -1,6 +1,7 @@
 import Banner from "@/components/common/Banner"
 import Page from "@/components/utils/Page"
 import { Alert, Stack } from "@mui/material"
+import Bitacora from "./bitacora"
 import Customers from "./customers"
 import Products from "./products"
 import Sales from "./sales"
@@ -20,6 +21,7 @@ const Reports = () => {
         <Sales />
         <Products />
         <Customers />
+        <Bitacora />
       </Stack>
     </Page>
   )
