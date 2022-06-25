@@ -224,10 +224,10 @@ const EntryProducts = () => {
                       {startDate && endDate && (
                         <>
                           <Typography variant="body1">
-                            Desde: {startDate}
+                            Desde: {moment(startDate).format('DD/MM/YYYY')}
                           </Typography>
                           <Typography variant="body1">
-                            Hasta: {endDate}
+                            Hasta: {moment(endDate).format('DD/MM/YYYY')}
                           </Typography>
                         </>
                       )}
@@ -481,10 +481,10 @@ const ReturnedProducts = () => {
                       {startDate && endDate && (
                         <>
                           <Typography variant="body1">
-                            Desde: {startDate}
+                            Desde: {moment(startDate).format('DD/MM/YYYY')}
                           </Typography>
                           <Typography variant="body1">
-                            Hasta: {endDate}
+                            Hasta: {moment(endDate).format('DD/MM/YYYY')}
                           </Typography>
                         </>
                       )}

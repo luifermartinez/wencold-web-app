@@ -69,7 +69,7 @@ const Entry = () => {
       })
 
   const fetchProviders = () =>
-    fetcherAuth(`/provider?page=1&limit=100000`)
+    fetcherAuth(`/provider?page=1&limit=100000&status=active`)
       .then((res) => {
         setProviders(res.data)
       })
@@ -200,12 +200,21 @@ const Entry = () => {
                     label="Fecha de vencimiento"
                     autoComplete="off"
                     value={productInfo.warrantyUpTo}
-                    onChange={(e) =>
+                    onChange={(e) => {
+                      if (
+                        e.target.value < new Date().toISOString().split("T")[0]
+                      ) {
+                        setMessage({
+                          type: "error",
+                          text: "La fecha ingresada no puede ser antes del día actual, asegúrese de ingresar una fecha válida.",
+                        })
+                        return
+                      }
                       setProductInfo((prev) => ({
                         ...prev,
                         warrantyUpTo: e.target.value,
                       }))
-                    }
+                    }}
                     InputLabelProps={{ shrink: true }}
                   />
                 </Grid>
