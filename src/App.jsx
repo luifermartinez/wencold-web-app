@@ -1,14 +1,14 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import Layout from "@/layouts/Layout"
 import { CssBaseline } from "@mui/material"
-import { useContext } from "react"
-import { AppContext } from "@/context/AppContext"
+
 import { HelmetProvider } from "react-helmet-async"
 import { esES } from "@mui/material/locale"
 import "./App.css"
+import { useGetApp } from "./helpers/hooks"
 
 function App() {
-  const { mode } = useContext(AppContext)
+  const { mode } = useGetApp()
 
   const theme = createTheme(
     {
